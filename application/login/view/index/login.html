@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录界面</title>
+    <!--CSS-->
+    <link rel="stylesheet" href="/PHPCMS/public/CSS/login/login.css">
+    <!--JS-->
+    <script type="text/javascript" src="/PHPCMS/public/JS/jquery.js"></script>
+</head>
+<body>
+   <div class="titleDiv">登录界面</div>
+   <!--<form action="{:url('login/index/he')}" method="post">-->
+       <div class="divOne">
+           <div class="divTwo">
+               <div class="ziDiv">账号</div><input class="userName" name="userName">
+           </div>
+           <div class="divTwo">
+               <div class="ziDiv">密码</div><input class="passWord" name="passWord">
+           </div>
+       </div>
+       <div class="submitDiv">
+           <button class="loginButton">登  录</button>
+       </div>
+   <!--</form>-->
+</body>
+    <script type="text/javascript">
+      //登录按钮
+      $(".loginButton").click(function () {
+          $.ajax({
+              type:"POST",
+              url:"./he",
+              data:{"userName":$(".userName").val(),"passWord":$(".passWord").val()},
+              success:function(data){
+                 console.log("测试"+data);
+              }
+          });
+
+      });
+    </script>
+</html>
