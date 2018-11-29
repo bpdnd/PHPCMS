@@ -16,6 +16,7 @@ class Index extends Controller
     public function  he(){
 
         return $_POST["userName"];
+        //$this->index();
         //dump($_POST["userName"]);
     }
 

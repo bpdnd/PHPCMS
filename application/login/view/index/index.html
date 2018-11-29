@@ -28,12 +28,19 @@
                 </el-header>
               </el-container>
 
-            <el-container style="height: 100%; border: 1px solid #eee">
+            <el-container style="height: 100%; border: 1px solid #eee" >
               <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-                <el-menu :default-openeds="['1']">
+                <el-menu :default-openeds="['1']" default-active="2"
+                         class="el-menu-vertical-demo"
+                         @open="handleOpen"
+                         @close="handleClose"
+                         background-color="#545c64"
+                         text-color="#fff"
+                         active-text-color="#ffd04b"
+                >
                   <el-submenu index="1">
                     <template slot="title"><i class="el-icon-message"></i>导航一</template>
-                    <el-menu-item-group>
+                    <el-menu-item-group >
                       <template slot="title">分组一</template>
                       <el-menu-item index="1-1">选项1</el-menu-item>
                       <el-menu-item index="1-2">选项2</el-menu-item>
@@ -44,6 +51,7 @@
                     <el-submenu index="1-4">
                       <template slot="title">选项4</template>
                       <el-menu-item index="1-4-1">选项4-1</el-menu-item>
+                      <el-menu-item index="1-4-2">选项4-1-2</el-menu-item>
                     </el-submenu>
                   </el-submenu>
                   <el-submenu index="2">
@@ -92,15 +100,50 @@
                     </el-table-column>
                     <el-table-column prop="name" label="姓名" width="120">
                     </el-table-column>
-                    <el-table-column prop="address" label="地址">
+                    <el-table-column prop="description" label="描述">
                     </el-table-column>
+                    <el-table-column label="图片上传">
+                      <template slot-scope="scope">
+                        <el-upload
+                                class="upload-demo"
+                                action="https://jsonplaceholder.typicode.com/posts/"
+                                :on-preview="handlePreview"
+                                :on-remove="handleRemove"
+                                :before-remove="beforeRemove"
+                                multiple
+                                :limit="3"
+                                :on-exceed="handleExceed"
+                                :file-list="fileList" style="display: inline-block">
+                          <el-button size="mini" type="primary">点击上传</el-button>
+                        </el-upload>
+                      </template>
+                    </el-table-column>
+
+                    <el-table-column label="视频上传">
+                      <template slot-scope="scope">
+                        <el-upload
+                                class="upload-demo"
+                                action="https://jsonplaceholder.typicode.com/posts/"
+                                :on-preview="handlePreview"
+                                :on-remove="handleRemove"
+                                :before-remove="beforeRemove"
+                                multiple
+                                :limit="3"
+                                :on-exceed="handleExceed"
+                                :file-list="fileList" style="display: inline-block">
+                          <el-button size="mini" type="primary">点击上传</el-button>
+                        </el-upload>
+                      </template>
+                    </el-table-column>
+
+
                     <el-table-column label="操作">
                       <template slot-scope="scope">
                         <!-- 编辑 -->
                          <el-button
                           size="mini"
-                          @click="handleEdit(scope.$index, scope.row ,tableData)">编辑</el-button>
-                          <el-dialog title="收货地址" :visible.sync="dialogFormVisible">
+                          @click="handleEdit(scope.$index, scope.row ,tableData)">编辑信息</el-button>
+                          <el-dialog title="编辑信息" :visible.sync="dialogFormVisible">
                             <el-form :model="form">
                               <el-form-item label="日期" :label-width="formLabelWidth">
                                 <el-input v-model="form.date" autocomplete="off" ></el-input>
@@ -108,8 +151,8 @@
                               <el-form-item label="姓名" :label-width="formLabelWidth">
                                 <el-input v-model="form.name" autocomplete="off" ></el-input>
                               </el-form-item>
-                              <el-form-item label="地址" :label-width="formLabelWidth">
-                                <el-input v-model="form.address" autocomplete="off" ></el-input>
+                              <el-form-item label="描述" :label-width="formLabelWidth">
+                                <el-input v-model="form.description" autocomplete="off" ></el-input>
                               </el-form-item>
                             </el-form>
                             <div slot="footer" class="dialog-footer">
@@ -139,46 +182,46 @@
               tableData: [{
                 date: '2016-05-01',
                 name: '王',
-                address: '上海市普陀区金沙江路 1 弄'
+                description: '上海市普陀区金沙江路 1 弄',
+
               }, {
-                date: '2016-05-02',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 2 弄'
+                  date: '2016-05-03',
+                  name: '王小虎',
+                  description: '上海市普陀区金沙江路 3 弄'
               }, {
-                date: '2016-05-03',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 3 弄'
+                  date: '2016-05-03',
+                  name: '王小虎',
+                  description: '上海市普陀区金沙江路 3 弄'
               }, {
-                date: '2016-05-04',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 4 弄'
+                  date: '2016-05-03',
+                  name: '王小虎',
+                  description: '上海市普陀区金沙江路 3 弄'
               }, {
-                date: '2016-05-05',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 5 弄'
+                  date: '2016-05-03',
+                  name: '王小虎',
+                  description: '上海市普陀区金沙江路 3 弄'
               }, {
-                date: '2016-05-06',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 6 弄'
+                  date: '2016-05-03',
+                  name: '王小虎',
+                  description: '上海市普陀区金沙江路 3 弄'
               }, {
-                date: '2016-05-07',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 7 弄'
+                  date: '2016-05-03',
+                  name: '王小虎',
+                  description: '上海市普陀区金沙江路 3 弄'
               }],
               multipleSelection: [],
               dialogFormVisible: false,
               form: {
                 date: '',
                 name: '',
-                address: ''
-                
+                description: ''
               },
               formLabelWidth: '120px',
               loading: false
             }
           },
           methods: {
-            //选择
+            //多选/单选  打勾 选择
             handleSelectionChange(val) {
                console.log(val.length);
                this.multipleSelection = val;
@@ -188,17 +231,17 @@
              console.log(index, row);
              this.$data.form.date    = row.date;
              this.$data.form.name    = row.name;
-             this.$data.form.address = row.address;
+             this.$data.form.description = row.description;
              this.$data.dialogFormVisible = true;
             },
             //编辑确定按钮
             handleEditSure(index,form){
                console.log(index);
-               console.log(form.name);
+               console.log(form.description);
                this.$data.tableData.splice(index,1,{
                 date: form.date,
                 name: form.name,
-                address: form.address
+                description: form.description
               });
               
               this.$data.dialogFormVisible = false;
@@ -228,8 +271,19 @@
                               });          
                           });
             },
-            ///
-          },
+            handleOpen(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handleClose(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            hehe(key, keyPath) {
+                console.log(key, keyPath);
+            },
+            handlePreview(file) {
+                console.log("123"+file);
+            }
+          }
         }
       var Ctor = Vue.extend(Main)
       new Ctor().$mount('#app')
