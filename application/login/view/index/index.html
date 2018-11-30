@@ -30,13 +30,12 @@
 
             <el-container style="height: 100%; border: 1px solid #eee" >
               <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-                <el-menu :default-openeds="['1']" default-active="2"
-                         class="el-menu-vertical-demo"
-                         @open="handleOpen"
-                         @close="handleClose"
-                         background-color="#545c64"
-                         text-color="#fff"
-                         active-text-color="#ffd04b"
+                <el-menu  default-active="activeIndex"
+                          class="el-menu-vertical-demo"
+                          @select="handleSelect"
+                          background-color="#545c64"
+                          text-color="#fff"
+                          active-text-color="#ffd04b"
                 >
                   <el-submenu index="1">
                     <template slot="title"><i class="el-icon-message"></i>导航一</template>
@@ -106,14 +105,14 @@
                       <template slot-scope="scope">
                         <el-upload
                                 class="upload-demo"
-                                action="https://jsonplaceholder.typicode.com/posts/"
+                                action="/PHPCMS/public/CSS"
                                 :on-preview="handlePreview"
                                 :on-remove="handleRemove"
                                 :before-remove="beforeRemove"
                                 multiple
                                 :limit="3"
                                 :on-exceed="handleExceed"
-                                :file-list="fileList" style="display: inline-block">
+                                :file-list="imageFileList" style="display: inline-block">
                           <el-button size="mini" type="primary">点击上传</el-button>
                         </el-upload>
                       </template>
@@ -130,7 +129,7 @@
                                 multiple
                                 :limit="3"
                                 :on-exceed="handleExceed"
-                                :file-list="fileList" style="display: inline-block">
+                                :file-list="vidoeFileList" style="display: inline-block">
                           <el-button size="mini" type="primary">点击上传</el-button>
                         </el-upload>
                       </template>
@@ -211,13 +210,16 @@
               }],
               multipleSelection: [],
               dialogFormVisible: false,
+              activeIndex:'1',
               form: {
                 date: '',
                 name: '',
                 description: ''
               },
               formLabelWidth: '120px',
-              loading: false
+              loading: false,
+              imageFileList:[],
+              vidoeFileList:[]
             }
           },
           methods: {
@@ -243,7 +245,7 @@
                 name: form.name,
                 description: form.description
               });
-              
+              console.log(this.$data);
               this.$data.dialogFormVisible = false;
               this.$data.loading = true;
               this.$data.loading = false;
@@ -256,10 +258,8 @@
                               cancelButtonText: '取消',
                               type: 'warning'
                            }).then(() => {
-
                               console.log(row);
                               rows.splice(index, 1);
-
                               this.$message({
                                 type: 'success',
                                 message: '删除成功!'
@@ -271,15 +271,10 @@
                               });          
                           });
             },
-            handleOpen(key, keyPath) {
-                console.log(key, keyPath);
-            },
-            handleClose(key, keyPath) {
-                console.log(key, keyPath);
-            },
-            hehe(key, keyPath) {
-                console.log(key, keyPath);
-            },
+              //子菜单选择
+            handleSelect(key, keyPath) {
+                console.log("子菜单"+key, keyPath);
+             },
             handlePreview(file) {
                 console.log("123"+file);
             }
