@@ -36,6 +36,7 @@
                           background-color="#545c64"
                           text-color="#fff"
                           active-text-color="#ffd04b"
+                          @select="handleSelect"
                 >
                   <el-submenu index="1">
                     <template slot="title"><i class="el-icon-message"></i>导航一</template>
@@ -277,6 +278,9 @@
              },
             handlePreview(file) {
                 console.log("123"+file);
+            },
+            handleSelect(key, keyPath) {
+                console.log(key, keyPath);
             }
           }
         }
