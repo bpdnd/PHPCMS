@@ -29,10 +29,14 @@
       $(".loginButton").click(function () {
           $.ajax({
               type:"POST",
-              url:"./he",
+              url:"/PHPCMS/application/login/controller/index/he",
               data:{"userName":$(".userName").val(),"passWord":$(".passWord").val()},
               success:function(data){
                  console.log("测试"+data);
+                 alert(123);
+              },
+              error:function () {
+                  alert(3434);
               }
           });
 
